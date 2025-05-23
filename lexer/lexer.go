@@ -34,13 +34,26 @@ func (l *Lexer) peekChar() byte {
 }
 
 func (l *Lexer) readIdentifier() string {
-	position := l.position;
+	position := l.position
 
-	for isLetter(l.ch){
+	for isLetter(l.ch) {
 		l.readChar()
 	}
 
-	return l.input[position:l.position];
+	return l.input[position:l.position]
+}
+
+func (l *Lexer) readString() string {
+	start := l.position + 1
+	l.readChar()
+
+	for l.ch != '"' && l.ch != 0 {
+		l.readChar()
+	}
+
+	str := l.input[start:l.position]
+	l.readChar()
+	return str
 }
 
 func (l *Lexer) readNumber() string {
@@ -62,8 +75,8 @@ func newToken(tokenType TokenType, ch byte) Token {
 	return Token{Type: tokenType, Literal: string(ch)}
 }
 
-func isLetter(ch byte) bool{
-	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'A';
+func isLetter(ch byte) bool {
+	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'A'
 }
 
 func (l *Lexer) NextToken() Token {
@@ -144,22 +157,27 @@ func (l *Lexer) NextToken() Token {
 		tok = newToken(LBRACKET, l.ch)
 	case ']':
 		tok = newToken(RBRACKET, l.ch)
+	case '"':
+		s := l.readString()
+		tok.Type = STRING
+		tok.Literal = s
+		return tok
 	case 0:
 		tok.Literal = ""
 		tok.Type = EOF
 	default:
-		if isLetter(l.ch){
-			ident := l.readIdentifier();
-			tok.Type = LookupIdent(ident);
-			tok.Literal = ident;
+		if isLetter(l.ch) {
+			ident := l.readIdentifier()
+			tok.Type = LookupIdent(ident)
+			tok.Literal = ident
 			return tok
-		}else if isDigit(l.ch){
-			literal := l.readNumber();
+		} else if isDigit(l.ch) {
+			literal := l.readNumber()
 			tok.Type = INT
 			tok.Literal = literal
 			return tok
 		} else {
-			tok = newToken(ILLEGAL, l.ch);
+			tok = newToken(ILLEGAL, l.ch)
 		}
 	}
 
