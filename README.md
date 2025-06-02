@@ -2,7 +2,7 @@
 
 A simple compiler written in Go, designed for educational and experimental purposes. It features a hand-written lexer, parser, and evaluator for a basic scripting language.
 
-## ✨ Features
+## ✨ Features to be added.
 
 * Tokenizer (lexer) for source code
 * Recursive descent parser
