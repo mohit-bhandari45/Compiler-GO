@@ -64,7 +64,7 @@ func (l *Lexer) readNumber() string {
 	return l.input[position:l.position]
 }
 
-/* Functions */
+/* Main Functions */
 func New(input string) *Lexer {
 	l := &Lexer{input: input}
 	l.readChar()
