@@ -130,12 +130,16 @@ func (l *Lexer) NextToken() Token {
 			ch := l.ch
 			l.readChar()
 			tok = Token{Type: AND, Literal: string(ch) + string(l.ch)}
+		} else {
+			tok = Token{Type: AMPERSAND, Literal: string(l.ch)}
 		}
 	case '|':
 		if l.peekChar() == '|' {
 			ch := l.ch
 			l.readChar()
 			tok = Token{Type: OR, Literal: string(ch) + string(l.ch)}
+		} else {
+			tok = Token{Type: PIPE, Literal: string(l.ch)}
 		}
 	case ';':
 		tok = newToken(SEMICOLON, l.ch)

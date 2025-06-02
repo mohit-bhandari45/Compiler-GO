@@ -3,7 +3,7 @@ package lexer
 type TokenType string
 
 type Token struct {
-	Type TokenType
+	Type    TokenType
 	Literal string
 }
 
@@ -20,20 +20,22 @@ const (
 	FLOAT  = "FLOAT"
 
 	// Operators
-	ASSIGN   = "="
-	PLUS     = "+"
-	MINUS    = "-"
-	BANG     = "!"
-	ASTERISK = "*"
-	SLASH    = "/"
-	EQ       = "=="
-	NOT_EQ   = "!="
-	LT       = "<"
-	GT       = ">"
-	LTE      = "<="
-	GTE      = ">="
-	AND      = "&&"
-	OR       = "||"
+	ASSIGN    = "="
+	PLUS      = "+"
+	MINUS     = "-"
+	BANG      = "!"
+	ASTERISK  = "*"
+	SLASH     = "/"
+	EQ        = "=="
+	NOT_EQ    = "!="
+	LT        = "<"
+	GT        = ">"
+	LTE       = "<="
+	GTE       = ">="
+	AMPERSAND = "&"
+	AND       = "&&"
+	OR        = "||"
+	PIPE      = "|"
 
 	// Delimiters
 	COMMA     = ","
@@ -63,24 +65,24 @@ const (
 )
 
 var keywords = map[string]TokenType{
-	"func": FUNCTION,
-	"let": LET,
-	"const": CONST,
-	"var": VAR,
-	"if": IF,
-	"else": ELSE,
+	"func":   FUNCTION,
+	"let":    LET,
+	"const":  CONST,
+	"var":    VAR,
+	"if":     IF,
+	"else":   ELSE,
 	"return": RETURN,
-	"for": FOR,
-	"while": WHILE,
-	"true": TRUE,
-	"FALSE": FALSE,
-	"null": NULL,
+	"for":    FOR,
+	"while":  WHILE,
+	"true":   TRUE,
+	"FALSE":  FALSE,
+	"null":   NULL,
 }
 
-func LookupIdent(ident string) TokenType{
+func LookupIdent(ident string) TokenType {
 	if tok, ok := keywords[ident]; ok {
-		return tok;
+		return tok
 	}
 
-	return IDENT;
+	return IDENT
 }
