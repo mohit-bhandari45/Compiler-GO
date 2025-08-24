@@ -1,15 +1,22 @@
+/* This is the entry point for the project. */
+
 package main
 
 import (
 	"fmt"
-	"github.com/mohit-bhandari45/Compiler-GO/lexer"
+
+	"github.com/mohit-bhandari45/Compiler-GO.git/internal/lexer"
 )
 
 func main() {
-	input := `let five = "Mohit";`
+	input := `
+	let five = 5;
+	let ten = 10;
+	`
 
-	l := lexer.New(input);
-	for tok := l.NextToken(); tok.Type!=lexer.EOF; tok = l.NextToken() {
-		fmt.Printf("%+v\n", tok);
+	l := lexer.New(input)
+
+	for tok := l.NextToken(); tok.Type != lexer.EOF; tok = l.NextToken() {
+		fmt.Printf("%+v\n", tok)
 	}
 }
