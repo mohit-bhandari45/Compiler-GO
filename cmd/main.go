@@ -10,8 +10,7 @@ import (
 
 func main() {
 	input := `
-	let five = 5;
-	let ten = 10;
+	five
 	`
 
 	l := lexer.New(input)
